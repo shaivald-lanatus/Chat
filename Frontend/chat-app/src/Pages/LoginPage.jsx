@@ -21,7 +21,6 @@ export default function SignIn() {
     email: "",
     password: "",
   });
-  const [visibiliy, setVisibility] = useState(false);
   const { isLogging, login } = useAuthStore();
 
   const handleChange = (e) => {

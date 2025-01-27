@@ -88,10 +88,10 @@ const logout = (req, res) => {
 
 const updateProfile = async (req, res) => {
   try {
-    const { profilePhoto } = req.body;
+    const { profilePhoto, fullName, email } = req.body;
     const userId = req.user._id;
 
-    if (!profilePhoto) {
+    if (!fullName || !email) {
       return res.status(401).json({ message: "Profile Photo is required" });
     }
     const cloudinaryUpload = await cloudinary.uploader.upload(profilePhoto);
@@ -99,6 +99,8 @@ const updateProfile = async (req, res) => {
       userId,
       {
         profilePhoto: cloudinaryUpload.secure_url,
+        fullName: fullName,
+        email: email,
       },
       { new: true }
     );
@@ -107,6 +109,42 @@ const updateProfile = async (req, res) => {
   } catch (error) {
     console.log("Error in updating", error);
     return res.status(400).json({ message: "Error while updating this" });
+  }
+};
+
+const updateDetails = async (req, res) => {
+  try {
+    const { fullName, email } = req.body;
+    const userId = req.user._id;
+
+    if (!fullName || !email) {
+      return res
+        .status(400)
+        .json({ message: "Fullname and Email are required" });
+    }
+
+    const updateUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        fullName: fullName,
+        email: email,
+      },
+      { new: true }
+    );
+
+    if (!updateUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      fullName: updateUser.fullName,
+      email: updateUser.email,
+    });
+  } catch (error) {
+    console.log("Error", error);
+    return res
+      .status(400)
+      .json({ message: "Error while updating the user details" });
   }
 };
 
@@ -119,4 +157,11 @@ const checkProfile = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, logout, updateProfile, checkProfile };
+module.exports = {
+  signup,
+  login,
+  logout,
+  updateProfile,
+  checkProfile,
+  updateDetails,
+};
