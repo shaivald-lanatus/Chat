@@ -15,13 +15,14 @@ import { useAuthStore } from "../store/useAuthStore";
 import toast from "react-hot-toast";
 
 const ProfilePaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
+  padding: theme.spacing(1),
   textAlign: "center",
   borderRadius: theme.shape.borderRadius,
   boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
   backgroundColor: "white",
   width: "100%",
   margin: "0 auto",
+  marginTop: "15px",
 }));
 
 const ProfileAvatar = styled(Avatar)(({ theme }) => ({
@@ -30,12 +31,15 @@ const ProfileAvatar = styled(Avatar)(({ theme }) => ({
   marginBottom: theme.spacing(2),
   border: "4px solid #3976d2",
   boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  display: "flex",
 }));
 
 const ProfileButton = styled(Button)(({ theme }) => ({
-  marginTop: theme.spacing(3),
-  padding: "10px 24px",
-  fontSize: "16px",
+  padding: "2px 10px",
+  fontSize: "15px",
   borderRadius: "50px",
   backgroundColor: "#3976d2",
   color: "#fff",
@@ -119,7 +123,18 @@ const ProfilePage = () => {
   return (
     <Container sx={{ padding: 4 }}>
       <ProfilePaper>
-        <ProfileAvatar alt="image" src={selectedImg || authUser.profilePhoto} />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            // alignItems: "center",
+          }}
+        >
+          <ProfileAvatar
+            alt="image"
+            src={selectedImg || authUser.profilePhoto}
+          />
+        </Box>
         <input
           type="file"
           accept="image/*"

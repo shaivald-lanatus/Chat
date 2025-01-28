@@ -40,3 +40,29 @@
 .read-the-docs {
   color: #888;
 }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.light-theme {
+  background-color: white;
+  color: black;
+}
+
+.dark-theme {
+  background-color: #121212;
+  color: white;
+}
+
+.dark-theme .MuiAppBar-root {
+  background-color: grey;
+}
+
+.light-theme .MuiAppBar-root {
+  background-color: #1976d2;
+}

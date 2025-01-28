@@ -1,4 +1,3 @@
-import "./App.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import LoginPage from "./Pages/LoginPage";
@@ -10,6 +9,8 @@ import { useEffect } from "react";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./components/Navbar";
+import { ThemeProvider } from "./context/ThemeContext";
+import "./App.css";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -20,11 +21,7 @@ function App() {
 
   if (isCheckingAuth && !authUser) {
     return (
-      <div
-        style={{
-          backgroundColor: "red",
-        }}
-      >
+      <div>
         <Loader
           style={{
             width: "3rem",
@@ -35,8 +32,9 @@ function App() {
       </div>
     );
   }
+
   return (
-    <>
+    <ThemeProvider>
       <Navbar />
       <Routes>
         <Route
@@ -57,9 +55,8 @@ function App() {
           element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
         />
       </Routes>
-
       <Toaster />
-    </>
+    </ThemeProvider>
   );
 }
 

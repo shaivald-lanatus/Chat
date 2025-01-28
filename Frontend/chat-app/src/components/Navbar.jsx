@@ -10,13 +10,14 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { useAuthStore } from "../store/useAuthStore";
+import { useTheme } from "../context/ThemeContext";
 
 const settings = ["Logout"];
 
 function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const { logout, authUser } = useAuthStore();
+  const { theme, toggleTheme } = useTheme();
+  const { logout } = useAuthStore();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -54,6 +55,15 @@ function Navbar() {
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
+            <IconButton onClick={toggleTheme} sx={{ p: 1, color: "inherit" }}>
+              {theme ? (
+                <Typography variant="body1">🌙</Typography>
+              ) : (
+                <Typography variant="body1">☀️</Typography>
+              )}
+            </IconButton>
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -84,4 +94,5 @@ function Navbar() {
     </AppBar>
   );
 }
+
 export default Navbar;
