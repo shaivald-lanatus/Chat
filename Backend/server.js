@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const routes = require("./routes/auth.route");
 const connectDB = require("./libs/db");
@@ -21,10 +20,6 @@ app.use(
 
 app.use("/api/auth", routes);
 app.use("/api", messageRoutes);
-
-app.get("/", (req, res) => {
-  res.send("hello");
-});
 
 app.listen(PORT, () => {
   console.log(`Runssning on ${PORT}`);

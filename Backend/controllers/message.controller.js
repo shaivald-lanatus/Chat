@@ -22,7 +22,7 @@ const getMessages = async (req, res) => {
         { senderId: myId, receiverId: userToChat },
         { senderId: userToChat, receiverId: myId },
       ],
-    });
+    }).select("message");
 
     res.status(200).json(messages);
   } catch (error) {
